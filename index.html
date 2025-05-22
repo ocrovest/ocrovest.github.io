@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ocrovest</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="martian">
+    <!--https://coolors.co/1a1a1a-ffffff-db9d47-e84855-5448c8-->
+    <span id="header" class="rubik heading">ocrovest</span>
+    <nav>
+        <a href="./index.html">home</a>
+        <a href="./log.html">log</a>
+        <a href="">bookmarks <span class="btn-ribbon">TODO</span></a>
+    </nav>
+    <hr>
+    <div class="grid-container">
+        <div>
+            <img id="skeleton" src="./media/skeleton-doot.png"/>
+            <p>Hello, Human! This is my fucking website which I tried making thousands of times, but I either lost motivation or just got busy and forgot about it.</p>
+            <p>Now that I have a website, I can do anything with it. Like a button with confetti
+            <button class="martian" id="confetti">Confetti!</button>
+            </p>
+            <p>This website is for anything and everything I want to share. example: mr skeletal (hover on it if you allow javascript)</p>
+            <p>I really liked how <a href="https://baccyflap.com/" target="_blank">baccyflap.com</a> looked so I tried incorporating some of the design, and also the buttons from <a href="https://www.textualize.io/" target="_blank">Textualize</a> looked so pretty despite being simple so I copied them</p>
+            <p>Used the font <a href="https://github.com/evilmartians/mono">Martian Mono</a> cause its fucking free and beautiful.</p>
+            
+            <p>The thing below is from <a href="https://turd.neocities.org/">turd.neocities.org</a>'s about page and its beautiful. There will be an inspirations section in collections</p>
+            <p>Hover over the cat maybe?</p>
+
+            <table style="font-size: 0.7em; text-align: center; margin:0 auto;">
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <p><b>who?</b></p>
+                            <p>ocrovest/ocro</p>
+                            <p>student in highschool</p>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><b>likes</b></p>
+                            <p>to code (love/hate)</p>
+                            <p>chess</p>
+                            <p>jojo's bizzare adventure</p>
+                        </td>
+                        <td>
+                            <img id="sleeping-cat" src="./media/grindneverstarts.jpg" height="150" width="150"/>
+                        </td>
+                        <td>
+                            <p><b>dislike</b></p>
+                            <p>loud sounds</p>
+                            <p>bullying! (long story)</p>
+                            <p>can't fit everything here</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <p><b>properties</b></p>
+                            <p>he/him</p>
+                            <p>i have glasses</p>
+                            <p>i have all 10 fingers</p>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <audio id="honk" loop>
+                <source src="./media/honk-mimimimimimimi.mp3" type="audio/mp3">
+            </audio>
+
+            <h2>Where to find me!</h2>
+            <p>I am trying to get off the big tech social media apps, but till that time comes</p>
+            <ul>
+                <li><a href="https://www.instagram.com/ocrovest/">Instagram</a></li>
+                <li>Discord: @ocrovest</li>
+                <li><a href="https://www.chess.com/member/ocrovest">chess.com</a></li>
+            </ul>
+        </div>
+        <div class="side-bar">
+            <iframe src="https://lichess.org/training/frame?theme=brown&bg=dark" style="width: 100%; aspect-ratio: 10/11; border-radius: 1em;" allowtransparency="true" frameborder="0"></iframe>
+        </div>
+    </div>
+        <!--
+            <div>
+        </div>
+    </div>-->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script>
+        const skeleton = document.getElementById("skeleton");
+        skeleton.addEventListener("mouseenter", function(e){
+            skeleton.src = "./media/skeleton-doot.gif";
+        })
+        skeleton.addEventListener("mouseleave", function(e){
+            skeleton.src = "./media/skeleton-doot.png";
+        })
+
+        const cat = document.getElementById("sleeping-cat");
+        const audio = document.getElementById("honk");
+
+        cat.addEventListener("mouseenter", function(e){
+            audio.play();
+        })
+        cat.addEventListener("mouseleave", function(e){
+            audio.pause();
+        })
+
+        confetti_buttom = document.getElementById("confetti");
+        confetti_buttom.addEventListener("onclick", function(e){
+
+            confetti({angle: Math.random() * 60 + 60, particleCount: 100, spread: 100, origin: { y: 0.4, x: 0.25}});
+        })
+    </script>
+    <script src="https://webneko.net/n20171213.js"></script>
+    <script>NekoType="black"</script>
+</body>
+</html>

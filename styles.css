@@ -1,0 +1,81 @@
+@font-face {
+    font-family: "Martian Mono";
+    src: url("./fonts/MartianMono-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Rubik Mono One";
+    src: url("./fonts/RubikMonoOne-Regular.ttf") format("truetype");
+}
+
+a {
+    color: #5448c8;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: white;
+    text-align: justify;
+    margin: 0.5em 1em;
+}
+
+
+button {
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 0 0 dimgray;
+}
+
+button:active {
+    box-shadow: none;
+}
+
+
+.martian {
+    font-family: "Martian Mono";
+}
+
+.rubik {
+    font-family: "Rubik Mono One";
+}
+
+.heading {
+    font-size: 5rem;
+}
+
+#skeleton {
+    height:10em;
+    width: 10em;
+    margin: 0.5em;
+    float: left;
+}
+
+.btn-ribbon {
+    font-size: 0.8em;
+    position: absolute;
+    transform: rotate(-15deg);
+    background-color: #ff9800;
+    color: white;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+   33% { transform: rotate(3deg); }
+   66% { transform: rotate(-3deg); }
+   100% { transform: rotate(0deg); }
+}
+
+#sleeping-cat:hover {
+    animation: wiggle 1s infinite;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.side-bar {
+    border-left: 3px solid dimgray;
+    padding-left: 1em;
+    margin-left: 0.7em;
+}
