@@ -20,7 +20,7 @@
             <img id="skeleton" src="./media/skeleton-doot.png"/>
             <p>Hello, Human! This is my fucking website which I tried making thousands of times, but I either lost motivation or just got busy and forgot about it.</p>
             <p>Now that I have a website, I can do anything with it. Like a button with confetti
-            <button class="martian" id="confetti">Confetti!</button>
+            <button class="martian" onclick="confetti({angle: Math.random() * 60 + 60, particleCount: 100, spread: 100});">Confetti!</button>
             </p>
             <p>This website is for anything and everything I want to share. example: mr skeletal (hover on it if you allow javascript)</p>
             <p>I really liked how <a href="https://baccyflap.com/" target="_blank">baccyflap.com</a> looked so I tried incorporating some of the design, and also the buttons from <a href="https://www.textualize.io/" target="_blank">Textualize</a> looked so pretty despite being simple so I copied them</p>
@@ -107,12 +107,6 @@
         })
         cat.addEventListener("mouseleave", function(e){
             audio.pause();
-        })
-
-        confetti_buttom = document.getElementById("confetti");
-        confetti_buttom.addEventListener("onclick", function(e){
-
-            confetti({angle: Math.random() * 60 + 60, particleCount: 100, spread: 100, origin: { y: 0, x: 0}});
         })
     </script>
     <script src="https://webneko.net/n20171213.js"></script>
