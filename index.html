@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ocrovest</title>
+    <link rel="stylesheet" href="./global.css">
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body class="martian">
-    <!--https://coolors.co/1a1a1a-ffffff-db9d47-e84855-5448c8-->
     <span id="header" class="rubik heading">ocrovest</span>
     <nav>
         <a href="./index.html">home</a>
@@ -20,7 +20,6 @@
             <img id="skeleton" src="./media/skeleton-doot.png"/>
             <p>Hello, Human! This is my fucking website which I tried making thousands of times, but I either lost motivation or just got busy and forgot about it.</p>
             <p>Now that I have a website, I can do anything with it. Like a button with confetti
-            <button class="martian" onclick="confetti({angle: Math.random() * 60 + 60, particleCount: 100, spread: 100});">Confetti!</button>
             </p>
             <p>This website is for anything and everything I want to share. example: mr skeletal (hover on it if you allow javascript)</p>
             <p>I really liked how <a href="https://baccyflap.com/" target="_blank">baccyflap.com</a> looked so I tried incorporating some of the design, and also the buttons from <a href="https://www.textualize.io/" target="_blank">Textualize</a> looked so pretty despite being simple so I copied them</p>
@@ -83,12 +82,13 @@
         </div>
         <div class="side-bar">
             <iframe src="https://lichess.org/training/frame?theme=brown&bg=dark" style="width: 100%; aspect-ratio: 10/11; border-radius: 1em;" allowtransparency="true" frameborder="0"></iframe>
+            <fieldset style="border-radius: 0.5em; border-color: crimson;">
+                <legend>Buttons!</legend>
+                <button class="martian" onclick="confetti({angle: Math.random() * 60 + 60, particleCount: 100, spread: 100});">Confetti!</button><br>
+                <button class="martian"><a href="./experiments/dvd.html">DVD Screensaver</a></button>
+            </fieldset>
         </div>
     </div>
-        <!--
-            <div>
-        </div>
-    </div>-->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script>
         const skeleton = document.getElementById("skeleton");
