@@ -93,8 +93,9 @@
     }
 
     
-    setInterval(changeBackgroundColor, 6200);
-    setInterval(changeBackgroundColor, 3200);
+    dvd.addEventListener('animationiteration', function(e){
+        changeBackgroundColor()
+    });
     </script>
 </body>
 </html>
