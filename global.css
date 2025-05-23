@@ -1,0 +1,38 @@
+@font-face {
+    font-family: "Martian Mono";
+    src: url("./fonts/MartianMono-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Rubik Mono One";
+    src: url("./fonts/RubikMonoOne-Regular.ttf") format("truetype");
+}
+
+.martian {
+    font-family: "Martian Mono";
+}
+
+.rubik {
+    font-family: "Rubik Mono One";
+}
+
+body {
+    background-color: #1a1a1a;
+    color: white;
+    text-align: justify;
+    margin: 0.5em 1em;
+}
+
+a {
+    color: #5448c8;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 0 0 dimgray;
+}
+
+button:active {
+    box-shadow: none;
+}
