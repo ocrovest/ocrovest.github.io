@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle</title>
+    <link rel="stylesheet" href="../global.css">
+    <style>
+        #game {
+            width: max-content;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .row {
+            margin: 0.3em;
+        }
+
+        .cell {
+            display: inline-flex;
+            height: 2em;
+            width: 2em;
+            padding: 0.5em;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            vertical-align: middle;
+            font-weight: 800;
+            border: 1px solid dimgray;
+            backface-visibility: hidden;
+        }
+
+        .green {
+            border: 1px solid mediumseagreen;
+            background-color: mediumseagreen;
+        }
+
+        .yellow {
+            border: 1px solid goldenrod;
+            background-color: goldenrod;
+        }
+
+        .grey {
+            background-color: dimgray;
+        }
+
+        .flip {
+            animation: flip 1s;
+        }
+
+        @keyframes flip {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
+
+        #overlay{
+            position:fixed;
+            top:0;
+            left:0;
+            z-index:9999;
+            height: 100vh;
+            width: 100vw;
+            background-color: #1a1a1a;
+            display: none;
+        }
+        
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            padding: 1em;
+            border-radius: 0.5em;
+        }
+
+        .shake {
+            animation: shake 1s;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-10px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(10px);
+            }
+        }
+
+        button {
+            font-size: 1.5em;
+            padding: 0.5em;
+            box-shadow: none;
+            border-radius: 0.4em;
+            font-family: monospace;
+        }
+
+
+        .keyboard-row {
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay">
+        <div class="center martian">
+            <h2>Correct your time</h3>
+            <p>You came to play Wordle.<br>A game that needs the correct time to get the word of the day, and still had the wrong time.<br>I would rather listen to nails on a chalkboard than deal with async/await for you to get the word of the day, for the correct day.<br>If you still won't fix your time after this know that you are lower than whle shit on the bottom of the ocean.<br>I'm kind enough to let you play even with the wrong date.</p>
+            <p>Your date should be <span id="date"></span> but you fucking live in <span id="wrong-date"></span></p>
+            <button class="martian" style="background-color: lightgreen;" onclick="removeMe();">Proceed</button>
+        </div>
+    </div>
+    <div id="game">
+        <div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+        </div>
+        <div id="keyboard">
+            <div class="keyboard-row">
+                <button class="keyboard-key" id="key-q">Q</button>
+                <button class="keyboard-key" id="key-w">W</button>
+                <button class="keyboard-key" id="key-e">E</button>
+                <button class="keyboard-key" id="key-r">R</button>
+                <button class="keyboard-key" id="key-t">T</button>
+                <button class="keyboard-key" id="key-y">Y</button>
+                <button class="keyboard-key" id="key-u">U</button>
+                <button class="keyboard-key" id="key-i">I</button>
+                <button class="keyboard-key" id="key-o">O</button>
+                <button class="keyboard-key" id="key-p">P</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="keyboard-key">A</button>
+                <button class="keyboard-key">S</button>
+                <button class="keyboard-key">D</button>
+                <button class="keyboard-key">F</button>
+                <button class="keyboard-key">G</button>
+                <button class="keyboard-key">H</button>
+                <button class="keyboard-key">J</button>
+                <button class="keyboard-key">K</button>
+                <button class="keyboard-key">L</button>
+            </div>
+            <div class="keyboard-row">
+                <button onclick="if (!won) confirm();">↵</button>
+                <button class="keyboard-key">Z</button>
+                <button class="keyboard-key">X</button>
+                <button class="keyboard-key">C</button>
+                <button class="keyboard-key">V</button>
+                <button class="keyboard-key">B</button>
+                <button class="keyboard-key">N</button>
+                <button class="keyboard-key">M</button>
+                <button onclick="deleteKey();">⌫</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="words.js"></script>
+    <script>
+// Comments were added cause I'm great
+
+const overlay = document.getElementById("overlay");
+// Function to handle overlay display
+function removeMe(){
+    overlay.style.display = "none";
+}
+
+// Fetch current time from API
+fetch('https://time.akamai.com/')
+.then(response => response.text())
+.then(timestamp => {
+    // Calculate current date
+    const time = parseInt(timestamp);
+    const date = new Date(time*1000)
+    const systemDate = new Date();
+    
+    formattedCorrectDate = date.toLocaleDateString('en-GB');
+    formattedSystemDate = systemDate.toLocaleDateString('en-GB');
+    
+    document.getElementById("date").textContent = formattedCorrectDate;
+    document.getElementById("wrong-date").textContent = formattedSystemDate;
+
+    // Display overlay if system date is incorrect
+    if (!formattedCorrectDate === formattedSystemDate){
+        overlay.style.display = "inline";
+    }
+    
+})
+.catch(error => {
+    console.error('Error fetching:', error);
+}); 
+
+// Game state variables
+let nextLetter = 0;
+let remainingGuesses = 6;
+let guess = "";
+let allGuesses = []
+let won = false;
+
+// Function to generate new word based on current date
+function newWord(){
+    time = Math.floor(Date.now()/1000);
+    time = time - (time % 86400);
+    index = time % words.length;
+    return words[index];
+}
+
+// Get today's word
+const answer = newWord().toUpperCase();
+
+// Function to determine color of each letter in guess
+function wordleEngine(a, b){
+    // Initialize color array
+    color = [];
+
+    let guess = a.split('');
+    let answer = b.split('');
+    let answerCount = {};
+
+    // Count occurrences of each letter in answer
+    for (let i = 0; i < 5; i++){
+        if (answerCount[answer[i]]) {
+            answerCount[answer[i]]++;
+        }
+        else {
+            answerCount[answer[i]] = 1;
+        }
+    }
+
+    // Determine color of each letter
+    for (let i = 0; i < 5; i++){
+        if (answer[i] === guess[i]){
+            answerCount[answer[i]]--;
+            color[i] = "green";
+        }
+    }
+
+    for (let i = 0; i < 5; i++){
+        if (color[i] === "green") {
+            continue;
+        }
+        if (answerCount[guess[i]] > 0) {
+            answerCount[guess[i]]--;
+            color[i] = "yellow";
+        }
+        else {
+            color[i] = "grey";
+        }
+    }
+
+    return color;
+}
+
+// Function to insert key into current guess
+function insertKey(key){
+    // Check if game is won or if there are no remaining guesses
+    if (won || remainingGuesses === 0 || nextLetter === 5){
+        return;
+    }
+
+    let row = document.getElementsByClassName("row")[6 - remainingGuesses];
+    let cell = row.children[nextLetter];
+
+    cell.textContent = key;
+    nextLetter++;
+    guess += key;
+}
+
+// Function to delete last key from current guess
+function deleteKey(){
+    // Check if game is won or if there are no remaining guesses
+    if (won || remainingGuesses === 0 || nextLetter === 0){
+        return;
+    }
+    let row = document.getElementsByClassName("row")[6 - remainingGuesses];
+    let cell = row.children[nextLetter - 1];
+
+    cell.textContent = "";
+    nextLetter--;
+    guess = guess.substring(0, guess.length - 1);
+}
+
+// Function to confirm current guess
+function confirm(){
+    // Check if guess is valid
+    if (guess.length !== 5 || remainingGuesses === 0 ){
+        return;
+    }
+
+    let row = document.getElementsByClassName("row")[6 - remainingGuesses];
+    
+    // Check if guess is a valid word
+    if (!words.includes(guess.toLowerCase())){
+        row.classList.add("shake");
+        setInterval(()=>{
+            row.classList.remove("shake");
+        }, 1000)
+        return;
+    }
+
+    // Check if guess is correct
+    if (guess === answer){
+        won = true;
+    }
+
+    nextLetter = 0;
+
+    colors = wordleEngine(guess, answer);
+
+    // Animate guess
+    for (i = 0; i < 5; i++){
+        row.children[i].classList.add("flip");
+    }
+
+    setTimeout(() => {
+        for (i = 0; i < 5; i++){
+            row.children[i].classList.add(colors[i]);
+        }
+    }, 500);
+
+    setTimeout(() => {
+        for (i = 0; i < 5; i++){
+            row.children[i].classList.remove("flip");
+     }
+    }, 1000);
+    remainingGuesses--;
+    allGuesses.push(guess);
+    guess = "";
+
+    // Save game data to local storage
+    const storedGameData = localStorage.getItem("gameData");
+    if (storedGameData){
+        const gameData = JSON.parse(storedGameData);
+        if (gameData.time === Math.floor(Date.now()/1000) - (Math.floor(Date.now()/1000) % 86400)){
+            if ((won && !gameData.won) || remainingGuesses === 0){
+                time = Math.floor(Date.now()/1000);
+                time = time - (time % 86400);
+                
+                gameData.guesses = allGuesses;
+                gameData.won = won;
+                localStorage.setItem("gameData", JSON.stringify(gameData))
+            }
+        } else {
+            if (won || remainingGuesses === 0){
+                time = Math.floor(Date.now()/1000);
+                time = time - (time % 86400);
+                
+                gameData = {"time": time, "guesses": allGuesses, "answer": answer, "won": won}
+                localStorage.setItem("gameData", JSON.stringify(gameData))
+            }
+        }
+    } else {
+        if (won || remainingGuesses === 0){
+            time = Math.floor(Date.now()/1000);
+            time = time - (time % 86400);
+            
+            gameData = {"time": time, "guesses": allGuesses, "answer": answer, "won": won}
+            localStorage.setItem("gameData", JSON.stringify(gameData))
+        }
+    }
+}
+
+// Function to load game data from local storage
+function loadGameData(){
+    const storedGameData = localStorage.getItem("gameData");
+    if (storedGameData){
+        const gameData = JSON.parse(storedGameData);
+        const currentTime = Math.floor(Date.now()/1000);
+        const currentDate = currentTime - (currentTime % 86400);
+        
+        // Check if game data is for current date
+        if (gameData.time === currentDate){
+            const guesses = gameData.guesses;
+            const answer = gameData.answer;
+
+            // Populate game board with previous guesses
+            for (let i = 0; i < guesses.length; i++){
+                const row = document.getElementById("game").getElementsByClassName("row")[i];
+                const guess = guesses[i];
+                for (let j = 0; j < 5; j++){
+                    row.children[j].textContent = guess[j];
+                    // add color classes
+                    const colors = wordleEngine(guess, answer);
+                    row.children[j].classList.add(colors[j]);
+                }
+            }
+
+            // Update game state
+            nextLetter = 0;
+            remainingGuesses = 6 - guesses.length;
+            allGuesses = guesses;
+            if (gameData.won || remainingGuesses === 0){
+                document.getElementById("game").style.pointerEvents = "none";
+                won = gameData.won;
+            }
+        }
+    }
+}
+
+// Load game data
+loadGameData();
+
+// Event listener for keyboard input
+document.addEventListener("keyup", (e) => {
+    if (won || remainingGuesses === 0){
+        return;
+    }
+
+    if (/[a-zA-Z]/.test(e.key) && e.key.length === 1 && !e.shiftKey){
+        insertKey(e.key.toUpperCase())
+    }
+    else if (e.key === "Backspace"){
+        deleteKey();
+    }
+    else if (e.key === "Enter"){
+        confirm();
+    }
+});
+
+// Event listener for on-screen keyboard
+let keys = document.querySelectorAll(".keyboard-key");
+keys.forEach(element => {
+    element.addEventListener("click", () => {
+        if (!won && remainingGuesses > 0){
+            insertKey(element.textContent)
+        }
+    });
+});
+            
+    </script>
+</body>
+</html>
