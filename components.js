@@ -16,6 +16,7 @@ template.innerHTML = `
     
     fieldset {
         border-radius: 0.5em;
+        box-shadow: 0 0 1em 0.5em black;
     }
 </style>
 
@@ -27,6 +28,7 @@ template.innerHTML = `
         <a href="./index.html">home</a>
         <a href="./log.html">log</a>
         <a href="./madness.html">madness</a>
+        <a href="./contacts.html">contacts</a>
     </nav>
 </fieldset>
 <br>
